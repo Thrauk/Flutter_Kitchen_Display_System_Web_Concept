@@ -1,0 +1,160 @@
+{
+  "status": true,
+  "data": [
+    {
+      "comanda": {
+        "id_ospatar": "13",
+        "nume_ospatar": "Adriana",
+        "tip_comanda": "dinein",
+        "table_no": "7",
+        "id_comanda": "1655563",
+        "valoare_comanda": "149.00",
+        "observatii_comanda": "",
+        "produse_comanda": [
+          {
+            "id_produs": "4124",
+            "denumire_produs": "Supa Zilei",
+            "id_categorie_produs": "2",
+            "denumire_categorie_produs": "Supa",
+            "observatii_produs": "",
+            "cantitate_produs": 5,
+            "pret_produs": 20,
+            "id_comanda": 1655563
+          },
+          {
+            "id_produs": "5400",
+            "denumire_produs": "Nuci Umplute",
+            "id_categorie_produs": "4",
+            "denumire_categorie_produs": "Desert",
+            "observatii_produs": "",
+            "cantitate_produs": 2,
+            "pret_produs": 20,
+            "id_comanda": 1655563
+          },
+          {
+            "id_produs": "4153",
+            "denumire_produs": "Limonanda",
+            "id_categorie_produs": "7",
+            "denumire_categorie_produs": "Bauturi",
+            "observatii_produs": "",
+            "cantitate_produs": 1,
+            "pret_produs": 9,
+            "id_comanda": 1655563
+          }
+        ],
+        "numar_comanda": "000000000001",
+        "data_comanda": "2024-02-16 12:13:49"
+      }
+    },
+    {
+      "comanda": {
+        "id_ospatar": "14",
+        "nume_ospatar": "Gheorghe",
+        "tip_comanda": "dinein",
+        "table_no": "3",
+        "id_comanda": "1600699",
+        "valoare_comanda": "75.00",
+        "observatii_comanda": "",
+        "produse_comanda": [
+          {
+            "id_produs": "1130",
+            "denumire_produs": "PASTILĂ BURGER PIAȚA9 (CRUD)",
+            "id_categorie_produs": "3",
+            "denumire_categorie_produs": "Burger",
+            "observatii_produs": "",
+            "cantitate_produs": 1,
+            "pret_produs": 11,
+            "id_comanda": 1600699
+          },
+          {
+            "id_produs": "2340",
+            "denumire_produs": "TORTILLAS cu PUI în Sos Sweet Chilli",
+            "id_categorie_produs": "5",
+            "denumire_categorie_produs": "Minuturi",
+            "observatii_produs": "",
+            "cantitate_produs": 2,
+            "pret_produs": 25,
+            "id_comanda": 1600699
+          },
+          {
+            "id_produs": "2621",
+            "denumire_produs": "Chifla burger Piata 9",
+            "id_categorie_produs": "3",
+            "denumire_categorie_produs": "Burger",
+            "observatii_produs": "",
+            "cantitate_produs": 1,
+            "pret_produs": 5,
+            "id_comanda": 1600699
+          },
+          {
+            "id_produs": "4153",
+            "denumire_produs": "Omleta",
+            "id_categorie_produs": "5",
+            "denumire_categorie_produs": "Minuturi",
+            "observatii_produs": "",
+            "cantitate_produs": 1,
+            "pret_produs": 9,
+            "id_comanda": 1600699
+          }
+        ],
+        "numar_comanda": "000000000002",
+        "data_comanda": "2024-02-16 12:21:09"
+      }
+    },
+    {
+      "comanda": {
+        "id_ospatar": "14",
+        "nume_ospatar": "Gheorghe",
+        "tip_comanda": "pickup",
+        "table_no": "",
+        "id_comanda": "1600800",
+        "valoare_comanda": "75.00",
+        "observatii_comanda": "",
+        "produse_comanda": [
+          {
+            "id_produs": "1130",
+            "denumire_produs": "PASTILĂ BURGER PIAȚA9 (CRUD)",
+            "id_categorie_produs": "3",
+            "denumire_categorie_produs": "Burger",
+            "observatii_produs": "",
+            "cantitate_produs": 1,
+            "pret_produs": 11,
+            "id_comanda": 1600800
+          },
+          {
+            "id_produs": "2340",
+            "denumire_produs": "TORTILLAS cu PUI în Sos Sweet Chilli",
+            "id_categorie_produs": "5",
+            "denumire_categorie_produs": "Minuturi",
+            "observatii_produs": "",
+            "cantitate_produs": 2,
+            "pret_produs": 25,
+            "id_comanda": 1600800
+          },
+          {
+            "id_produs": "2621",
+            "denumire_produs": "Chifla burger Piata 9",
+            "id_categorie_produs": "3",
+            "denumire_categorie_produs": "Burger",
+            "observatii_produs": "",
+            "cantitate_produs": 1,
+            "pret_produs": 5,
+            "id_comanda": 1600800
+          },
+          {
+            "id_produs": "4153",
+            "denumire_produs": "Taxa-Livrare",
+            "id_categorie_produs": "11",
+            "denumire_categorie_produs": "Altele",
+            "observatii_produs": "",
+            "cantitate_produs": 1,
+            "pret_produs": 9,
+            "id_comanda": 1600800
+          }
+        ],
+        "numar_comanda": "000000000003",
+        "data_comanda": "2024-02-16 12:25:09"
+      }
+    }
+  ]
+}

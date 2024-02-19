@@ -1,0 +1,26 @@
+name: kds_sample_project
+description: "A sample project for a KDS system, based on certain requirements for an interview."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/sample_data.json
