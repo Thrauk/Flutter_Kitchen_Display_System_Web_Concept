@@ -7,6 +7,12 @@ class OrderRepository {
 
   static final OrderRepository _singleton = OrderRepository._internal();
 
+  Future<OrdersDTO> getOrders() async {
+    final String response = await rootBundle.loadString('assets/sample_data.json');
+    final jsonData = await json.decode(response) as Map<String, dynamic>;
+    print(OrdersDTO.fromJson(jsonData));
+    return OrdersDTO.fromJson(jsonData);
+  }
 
 
 }

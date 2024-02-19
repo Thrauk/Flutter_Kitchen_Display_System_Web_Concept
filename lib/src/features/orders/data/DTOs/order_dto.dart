@@ -54,4 +54,9 @@ class OrderDTO {
       'data_comanda': dataComanda,
     };
   }
+
+  @override
+  String toString() {
+    return 'OrderDTO{idOspatar: $idOspatar, idComanda: $idComanda, numeOspatar: $numeOspatar, tipComanda: $tipComanda, tableNo: $tableNo, valoareComanda: $valoareComanda, observatiiComanda: $observatiiComanda, produseComanda: $produseComanda, numarComanda: $numarComanda, dataComanda: $dataComanda}';
+  }
 }

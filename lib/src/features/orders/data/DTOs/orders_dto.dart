@@ -16,4 +16,8 @@ class OrdersDTO {
     );
   }
 
+  @override
+  String toString() {
+    return 'OrdersDTO{status: $status, data: $data}';
+  }
 }
