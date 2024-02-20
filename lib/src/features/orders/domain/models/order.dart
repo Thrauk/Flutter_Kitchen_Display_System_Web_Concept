@@ -164,4 +164,32 @@ class Order {
   static List<Order> fromListMap(List<dynamic> list) {
     return list.map((order) => Order.fromMap(order as Map<String,dynamic>)).toList();
   }
+
+  Order copyWith({
+    String? orderId,
+    double? orderPrice,
+    OrderType? orderType,
+    String? orderNumber,
+    DateTime? orderDateTime,
+    List<OrderProduct>? products,
+    String? observations,
+    OrderStatus? orderStatus,
+    String? waiterId,
+    String? waiterName,
+    String? tableNumber,
+  }) {
+    return Order(
+      orderId: orderId ?? this.orderId,
+      orderPrice: orderPrice ?? this.orderPrice,
+      orderType: orderType ?? this.orderType,
+      orderNumber: orderNumber ?? this.orderNumber,
+      orderDateTime: orderDateTime ?? this.orderDateTime,
+      products: products ?? this.products,
+      observations: observations ?? this.observations,
+      orderStatus: orderStatus ?? this.orderStatus,
+      waiterId: waiterId ?? this.waiterId,
+      waiterName: waiterName ?? this.waiterName,
+      tableNumber: tableNumber ?? this.tableNumber,
+    );
+  }
 }

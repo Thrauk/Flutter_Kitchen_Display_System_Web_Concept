@@ -37,6 +37,7 @@ class OrderItemWidget extends StatelessWidget {
               orderNumber: order.orderNumber,
               orderDate: order.orderDateTime,
               waiterName: order.waiterName,
+              orderStatus: order.orderStatus,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -74,10 +75,24 @@ class OrderItemWidget extends StatelessWidget {
               ),
             ),
             ActionButton(
-              backgroundColor: KDSColors.buttonBlue,
-              hoverColor: KDSColors.buttonBlueHover,
+              backgroundColor: order.orderStatus == OrderStatus.inProgress ? KDSColors.buttonGreen : KDSColors.buttonBlue,
+              hoverColor: order.orderStatus == OrderStatus.inProgress ? KDSColors.buttonGreenHover : KDSColors.buttonBlueHover,
               text: order.orderStatus == OrderStatus.inProgress ? 'FINISH' : 'START',
-              onTap: () {},
+              onTap: () {
+                if(order.orderStatus == OrderStatus.notStarted) {
+                  context.read<OrderBloc>().add(
+                    StartOrder(
+                      orderID: order.orderId,
+                    ),
+                  );
+                } else if(order.orderStatus == OrderStatus.inProgress) {
+                  context.read<OrderBloc>().add(
+                    FinishOrder(
+                      orderID: order.orderId,
+                    ),
+                  );
+                }
+              },
             ),
           ],
         ),

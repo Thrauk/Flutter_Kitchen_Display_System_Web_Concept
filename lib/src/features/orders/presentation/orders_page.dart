@@ -6,7 +6,16 @@ class OrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<OrderBloc>(
-      create: (context) => OrderBloc(),
+      create: (context) => OrderBloc(
+        onImportError: () {
+          showDialog<String?>(
+            context: context,
+            builder: (BuildContext context) {
+              return const ImportJsonErrorDialog();
+            },
+          );
+        },
+      ),
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
@@ -27,6 +36,14 @@ class OrdersPage extends StatelessWidget {
                   context.read<OrderBloc>().add(DebugClearData());
                 },
                 child: const Text('Clear data'),
+              ),
+              const SizedBox(
+                width: 4,
+              ),
+              ImportByJsonButton(
+                onImport: (jsonText) {
+                  context.read<OrderBloc>().add(ImportFromJson(jsonText: jsonText));
+                },
               ),
             ],
             leading: Padding(
@@ -59,7 +76,9 @@ class OrdersPage extends StatelessWidget {
                       child: Wrap(
                         spacing: 8,
                         runSpacing: 8,
-                        children: state.orders.map((order) => OrderItemWidget(order: order)).toList(),
+                        children: state.orders
+                            .map((order) => OrderItemWidget(key: ValueKey<String>(order.orderId), order: order))
+                            .toList(),
                       ),
                     ),
                   ),

@@ -5,11 +5,13 @@ class OrderItemHeader extends StatelessWidget {
     super.key,
     required this.orderNumber,
     required this.orderDate,
+    required this.orderStatus,
     this.waiterName,
   });
 
   final String orderNumber;
   final DateTime orderDate;
+  final OrderStatus orderStatus;
   final String? waiterName;
 
   @override
@@ -17,7 +19,7 @@ class OrderItemHeader extends StatelessWidget {
     return Container(
       height: 75,
       width: double.infinity,
-      color: Colors.blueGrey,
+      color: orderStatus == OrderStatus.inProgress ? Colors.green : Colors.blueGrey,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Row(

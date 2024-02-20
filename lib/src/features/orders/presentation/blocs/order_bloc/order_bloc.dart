@@ -1,44 +1,40 @@
 part of orders;
 
 class OrderBloc extends Bloc<OrderEvent, OrderState> {
-  OrderBloc() : super(OrderState.initial()) {
+  OrderBloc({required this.onImportError}) : super(OrderState.initial()) {
     on<FetchOrders>(_onFetchAll);
     on<DebugPopulateFromAssets>(_onDebugPopulateFromAssets);
     on<InitializeOrderBloc>(_onInitializeOrderBloc);
     on<OnOrdersUpdate>(_onOnOrdersUpdate);
     on<DebugClearData>(_onDebugClearData);
+    on<StartOrder>(_onStartOrder);
+    on<FinishOrder>(_onFinishOrder);
+    on<ImportFromJson>(_onImportFromJson);
+
+    _orderStream = _orderRepository.getStream();
+    _orderSubscription = _orderStream.listen((event) {
+      _onOrderFirebaseSnapshot(event);
+    });
 
     add(InitializeOrderBloc());
   }
 
   final OrderRepository _orderRepository = OrderRepository();
-
-  late final Preference<String> _ordersPreferences;
-
-  late final StreamSubscription<String> _ordersListener;
+  final VoidCallback onImportError;
+  late final Stream<DocumentSnapshot<Map<String, dynamic>>> _orderStream;
+  late final StreamSubscription<DocumentSnapshot<Map<String, dynamic>>> _orderSubscription;
 
   Future<void> _onInitializeOrderBloc(InitializeOrderBloc event, Emitter<OrderState> emit) async {
-    if (!state.isInitialized) {
-      emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: true));
 
-      _ordersPreferences = await _orderRepository.getStartedOrders();
+    final orders = await _orderRepository.getOrders();
 
-      _ordersListener = _ordersPreferences.listen((value) {
-        print(value);
-        final newOrders = Order.fromListMap(jsonDecode(value) as List);
-        add(
-          OnOrdersUpdate(
-            orders: newOrders,
-          ),
-        );
-      });
-
-      emit(
-        state.copyWith(
-          isLoading: false,
-        ),
-      );
-    }
+    emit(
+      state.copyWith(
+        orders: orders,
+        isLoading: false,
+      ),
+    );
   }
 
   Future<void> _onOnOrdersUpdate(OnOrdersUpdate event, Emitter<OrderState> emit) async {
@@ -47,6 +43,43 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         orders: event.orders,
       ),
     );
+  }
+
+  Future<void> _onStartOrder(StartOrder event, Emitter<OrderState> emit) async {
+    final selectedOrder = state.orders.firstWhereOrNull((element) => element.orderId == event.orderID);
+    if (selectedOrder != null) {
+      final newOrder = selectedOrder.copyWith(orderStatus: OrderStatus.inProgress);
+      final newOrders = List<Order>.from(state.orders);
+      newOrders.removeWhere((element) => element.orderId == event.orderID);
+      newOrders.insert(0, newOrder);
+      _orderRepository.saveOrders(newOrders);
+    }
+  }
+
+  Future<void> _onImportFromJson(ImportFromJson event, Emitter<OrderState> emit) async {
+    try {
+      final jsonBody = jsonDecode(event.jsonText);
+      final ordersDTOS = OrdersDTO.fromJson(jsonBody);
+      final ordersToImport = ordersDTOS.data.map((e) => Order.fromDTO(e)).toList();
+      for (Order order in ordersToImport) {
+        if (state.orders.any((stateOrder) => stateOrder.orderId == order.orderId)) {
+          throw (Exception('Order already exists!'));
+        }
+      }
+      _orderRepository.saveOrders([...ordersToImport, ...state.orders]);
+    } catch (_) {
+      print(_);
+      onImportError.call();
+    }
+  }
+
+  Future<void> _onFinishOrder(FinishOrder event, Emitter<OrderState> emit) async {
+    final selectedOrder = state.orders.firstWhereOrNull((element) => element.orderId == event.orderID);
+    if (selectedOrder != null) {
+      final newOrders = List<Order>.from(state.orders);
+      newOrders.removeWhere((element) => element.orderId == event.orderID);
+      _orderRepository.saveOrders(newOrders);
+    }
   }
 
   Future<void> _onFetchAll(FetchOrders event, Emitter<OrderState> emit) async {
@@ -88,9 +121,17 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     );
   }
 
+  void _onOrderFirebaseSnapshot(DocumentSnapshot<Map<String, dynamic>> event) {
+    final data = event.data();
+    final firebaseOrders = data?['values'] ?? [];
+    final newOrders = Order.fromListMap(firebaseOrders);
+
+    add(OnOrdersUpdate(orders: newOrders));
+  }
+
   @override
   Future<void> close() async {
+    _orderSubscription.cancel();
     super.close();
-    _ordersListener.cancel();
   }
 }

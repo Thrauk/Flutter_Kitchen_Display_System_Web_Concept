@@ -44,6 +44,16 @@ class FinishOrder extends OrderEvent {
   List<Object?> get props => [orderID];
 }
 
+class ImportFromJson extends OrderEvent {
+  const ImportFromJson({
+    required this.jsonText,
+  });
+  final String jsonText;
+
+  @override
+  List<Object?> get props => [jsonText];
+}
+
 class DebugPopulateFromAssets extends OrderEvent {}
 
 class DebugClearData extends OrderEvent {}
