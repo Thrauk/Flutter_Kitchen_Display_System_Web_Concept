@@ -22,16 +22,33 @@ class _OrderProductItemState extends State<OrderProductItem> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('${widget.product.quantity} x '),
+            Text(
+              '${widget.product.quantity} x ',
+              style: KDSTextStyles.body(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${widget.product.name}'),
-                if(widget.product.observations.isNotEmpty)
-                  Text('${widget.product.observations}'),
+                Text(
+                  widget.product.name,
+                  style: KDSTextStyles.body(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                if (widget.product.observations.isNotEmpty)
+                  Text(
+                    widget.product.observations,
+                    style: KDSTextStyles.body(
+                      color: KDSColors.red,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
               ],
             ),
-
           ],
         ),
       ),

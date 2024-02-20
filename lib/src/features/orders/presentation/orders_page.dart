@@ -12,19 +12,22 @@ class _OrdersPageState extends State<OrdersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black12,
-      body: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () async {
-              final ordersDTO = await OrderRepository().getOrders();
-              final orders = Order.fromDTO(ordersDTO.data.first);
-            },
-            child: Text('Test repo'),
-          ),
-          OrderItemWidget(),
-          const SizedBox(height: 8),
-          OrderItemWidget(),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () async {
+                final ordersDTO = await OrderRepository().getOrders();
+                final orders = Order.fromDTO(ordersDTO.data.first);
+              },
+              child: Text('Test repo'),
+            ),
+            // OrderItemWidget(),
+            const SizedBox(height: 8),
+            // OrderItemWidget(),
+          ],
+        ),
       ),
     );
   }
