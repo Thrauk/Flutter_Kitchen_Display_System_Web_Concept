@@ -1,6 +1,6 @@
 part of orders;
 
-class OrderItemWidget extends StatefulWidget {
+class OrderItemWidget extends StatelessWidget {
   const OrderItemWidget({
     super.key,
     required this.order,
@@ -9,15 +9,10 @@ class OrderItemWidget extends StatefulWidget {
   final Order order;
 
   @override
-  State<OrderItemWidget> createState() => _OrderItemWidgetState();
-}
-
-class _OrderItemWidgetState extends State<OrderItemWidget> {
-  @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
-      width: 300,
+      height: 450,
+      width: 400,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.all(Radius.circular(4)),
@@ -33,31 +28,34 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
       child: Column(
         children: [
           OrderItemHeader(
-            orderNumber: '#0001',
-            orderDate: DateTime.now(),
-            waiterName: 'Gogu',
+            orderNumber: order.orderNumber,
+            orderDate: order.orderDateTime,
+            waiterName: order.waiterName,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "Table 15",
+              order.tableNumber.isNotEmpty ? 'Table ${order.tableNumber}' : 'Pickup',
               style: KDSTextStyles.body(fontSize: 20, fontWeight: FontWeight.w600),
             ),
           ),
           Expanded(
-            child: ListView.separated(
-              itemBuilder: (BuildContext context, int index) {
-                return OrderProductItem(
-                  product: widget.order.products[index],
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Divider(),
-                );
-              },
-              itemCount: widget.order.products.length,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.separated(
+                itemBuilder: (BuildContext context, int index) {
+                  return OrderProductItem(
+                    product: order.products[index],
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Divider(),
+                  );
+                },
+                itemCount: order.products.length,
+              ),
             ),
           ),
           Container(

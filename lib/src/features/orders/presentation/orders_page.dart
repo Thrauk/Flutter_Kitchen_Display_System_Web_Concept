@@ -1,32 +1,49 @@
 part of orders;
 
-class OrdersPage extends StatefulWidget {
+class OrdersPage extends StatelessWidget {
   const OrdersPage({super.key});
 
-  @override
-  State<OrdersPage> createState() => _OrdersPageState();
-}
-
-class _OrdersPageState extends State<OrdersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black12,
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            ElevatedButton(
-              onPressed: () async {
-                final ordersDTO = await OrderRepository().getOrders();
-                final orders = Order.fromDTO(ordersDTO.data.first);
-              },
-              child: Text('Test repo'),
-            ),
-            // OrderItemWidget(),
-            const SizedBox(height: 8),
-            // OrderItemWidget(),
-          ],
+      body: BlocProvider<OrderBloc>(
+        create: (context) => OrderBloc(),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: BlocBuilder<OrderBloc, OrderState>(
+            builder: (context, state) {
+              if (state.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              return SingleChildScrollView(
+                child: SizedBox(
+                  width: double.maxFinite,
+                  child: Center(
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 4,
+                      children: state.orders.map((order) => OrderItemWidget(order: order)).toList(),
+                    ),
+                  ),
+                ),
+              );
+              // return GridView.builder(
+              //   itemCount: state.orders.length,
+              //   shrinkWrap: true,
+              //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              //     crossAxisCount: 2,
+              //     crossAxisSpacing: 10,
+              //     mainAxisSpacing: 20,
+              //   ),
+              //   physics: const ClampingScrollPhysics(),
+              //   scrollDirection: Axis.horizontal,
+              //   itemBuilder: (context, index) {
+              //     return OrderItemWidget(order: state.orders[index]);
+              //   },
+              // );
+            },
+          ),
         ),
       ),
     );

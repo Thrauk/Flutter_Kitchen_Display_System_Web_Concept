@@ -29,25 +29,30 @@ class _OrderProductItemState extends State<OrderProductItem> {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.product.name,
-                  style: KDSTextStyles.body(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                if (widget.product.observations.isNotEmpty)
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
-                    widget.product.observations,
+                    widget.product.name,
+                    overflow: TextOverflow.ellipsis,
                     style: KDSTextStyles.body(
-                      color: KDSColors.red,
-                      fontStyle: FontStyle.italic,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-              ],
+                  if (widget.product.observations.isNotEmpty)
+                    Text(
+                     widget.product.observations,
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                      style: KDSTextStyles.body(
+                        color: KDSColors.red,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                ],
+              ),
             ),
           ],
         ),

@@ -52,8 +52,8 @@ class Order {
       orderId: dto.idComanda,
       /// We consider that the data is valid
       orderPrice: double.tryParse(dto.valoareComanda)!,
-      orderType: getOrderTypeFromString(dto.tipComanda),
-      orderNumber: dto.numarComanda,
+      orderType: _getOrderTypeFromString(dto.tipComanda),
+      orderNumber: _defaultOrderNumberConvert(dto.numarComanda),
       orderDateTime: DateTime.parse(dto.dataComanda),
       products:
           List<OrderProduct>.from(dto.produseComanda.map((productDTO) => OrderProduct.fromDTO(productDTO)).toList()),
@@ -64,8 +64,22 @@ class Order {
       orderStatus: OrderStatus.notStarted,
     );
   }
+  
 
-  static OrderType getOrderTypeFromString(String orderType) {
+  static List<Order> listFromDTO(OrdersDTO dto) {
+    return dto.data.map((orderDTO) => Order.fromDTO(orderDTO)).toList();
+  }
+  
+  static String _defaultOrderNumberConvert(String orderNumber) {
+    try{
+      final processedOrderNumber = orderNumber.substring(8);
+      return processedOrderNumber;
+    } catch(_) {
+      return orderNumber;
+    }
+  }
+  
+  static OrderType _getOrderTypeFromString(String orderType) {
     switch (orderType) {
       case 'dinein':
         return OrderType.dineIn;
