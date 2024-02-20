@@ -7,18 +7,11 @@ class OrderActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      color: Colors.blue,
-      child: Center(
-        child: Text(
-          'START',
-          style: KDSTextStyles.body(
-            fontSize: 20,
-            color: Colors.white,
-          ),
-        ),
-      ),
+    return ActionButton(
+      backgroundColor: KDSColors.buttonBlue,
+      hoverColor: KDSColors.buttonBlueHover,
+      text: 'START',
+      onTap: () {},
     );
   }
 }

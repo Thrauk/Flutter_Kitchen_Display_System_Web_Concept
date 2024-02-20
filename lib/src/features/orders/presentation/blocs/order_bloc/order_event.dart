@@ -1,6 +1,5 @@
 part of orders;
 
-
 abstract class OrderEvent extends Equatable {
   const OrderEvent();
 
@@ -9,6 +8,19 @@ abstract class OrderEvent extends Equatable {
 }
 
 class FetchOrders extends OrderEvent {}
+
+class OnOrdersUpdate extends OrderEvent {
+  const OnOrdersUpdate({
+    required this.orders,
+  });
+
+  final List<Order> orders;
+
+  @override
+  List<Object?> get props => [orders];
+}
+
+class InitializeOrderBloc extends OrderEvent {}
 
 class StartOrder extends OrderEvent {
   const StartOrder({
@@ -32,3 +44,6 @@ class FinishOrder extends OrderEvent {
   List<Object?> get props => [orderID];
 }
 
+class DebugPopulateFromAssets extends OrderEvent {}
+
+class DebugClearData extends OrderEvent {}

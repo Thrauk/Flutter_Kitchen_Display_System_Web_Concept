@@ -8,4 +8,6 @@ class KDSColors {
   static const Color red = Color(0xffF24646);
   static const Color darkRed = Color(0xff810b0b);
   static const Color darkBlue = Color(0xff1c2733);
+  static const Color buttonBlue = Color(0xff3094f6);
+  static const Color buttonBlueHover = Color(0xff1c7bef);
 }

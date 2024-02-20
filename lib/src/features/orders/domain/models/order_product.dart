@@ -43,4 +43,34 @@ class OrderProduct {
       orderId: dto.idComanda.toString(),
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'categoryId': categoryId,
+      'categoryName': categoryName,
+      'observations': observations,
+      'quantity': quantity,
+      'price': price,
+      'orderId': orderId,
+    };
+  }
+
+  factory OrderProduct.fromMap(Map<String, dynamic> map) {
+    return OrderProduct(
+      id: map['id'] as String,
+      name: map['name'] as String,
+      categoryId: map['categoryId'] as String,
+      categoryName: map['categoryName'] as String,
+      observations: map['observations'] as String,
+      quantity: map['quantity'] as int,
+      price: map['price'] as double,
+      orderId: map['orderId'] as String,
+    );
+  }
+
+  static List<OrderProduct> fromListMap(List<dynamic> list) {
+    return list.map((product) => OrderProduct.fromMap(product as Map<String,dynamic>)).toList();
+  }
 }

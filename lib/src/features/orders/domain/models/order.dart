@@ -2,7 +2,7 @@ part of orders;
 
 enum OrderType { dineIn, pickUp, invalid }
 
-enum OrderStatus { notStarted, inProgress, finished }
+enum OrderStatus { notStarted, inProgress, finished, invalid }
 
 class Order {
   const Order({
@@ -64,6 +64,8 @@ class Order {
       orderStatus: OrderStatus.notStarted,
     );
   }
+
+
   
 
   static List<Order> listFromDTO(OrdersDTO dto) {
@@ -88,5 +90,78 @@ class Order {
       default:
         return OrderType.invalid;
     }
+  }
+
+  static String _getOrderTypeStringFromEnum(OrderType type) {
+    switch (type) {
+      case OrderType.dineIn:
+        return 'dinein';
+      case OrderType.pickUp:
+        return 'pickup';
+      default:
+        return 'invalid';
+    }
+  }
+
+  static OrderStatus _getOrderStatusFromString(String orderStatus) {
+    switch (orderStatus) {
+      case 'notStarted':
+        return OrderStatus.notStarted;
+      case 'inProgress':
+        return OrderStatus.inProgress;
+      case 'finished':
+        return OrderStatus.finished;
+      default:
+        return OrderStatus.invalid;
+    }
+  }
+
+  static String _getOrderStatusStringFromEnum(OrderStatus status) {
+    switch (status) {
+      case OrderStatus.notStarted:
+        return 'notStarted';
+      case OrderStatus.inProgress:
+        return 'inProgress';
+      case OrderStatus.finished:
+        return 'finished';
+      default:
+        return 'invalid';
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'orderId': orderId,
+      'orderPrice': orderPrice,
+      'orderType': _getOrderTypeStringFromEnum(orderType),
+      'orderStatus': _getOrderStatusStringFromEnum(orderStatus),
+      'orderNumber': orderNumber,
+      'orderDateTime': orderDateTime.millisecondsSinceEpoch,
+      'products': products.map((product) => product.toMap()).toList(),
+      'observations': observations,
+      'waiterId': waiterId,
+      'waiterName': waiterName,
+      'tableNumber': tableNumber,
+    };
+  }
+
+  factory Order.fromMap(Map<String, dynamic> map) {
+    return Order(
+      orderId: map['orderId'] as String,
+      orderPrice: map['orderPrice'] as double,
+      orderType: _getOrderTypeFromString(map['orderType'] as String),
+      orderStatus: _getOrderStatusFromString(map['orderStatus'] as String),
+      orderNumber: map['orderNumber'] as String,
+      orderDateTime: DateTime.fromMillisecondsSinceEpoch(map['orderDateTime'] as int),
+      products: OrderProduct.fromListMap(map['products'] as List),
+      observations: map['observations'] as String,
+      waiterId: map['waiterId'] as String,
+      waiterName: map['waiterName'] as String,
+      tableNumber: map['tableNumber'] as String,
+    );
+  }
+
+  static List<Order> fromListMap(List<dynamic> list) {
+    return list.map((order) => Order.fromMap(order as Map<String,dynamic>)).toList();
   }
 }

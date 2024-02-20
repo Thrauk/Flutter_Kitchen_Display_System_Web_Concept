@@ -40,9 +40,18 @@ class OrderItemWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                order.tableNumber.isNotEmpty ? 'Table ${order.tableNumber}' : 'Pickup',
-                style: KDSTextStyles.body(fontSize: 20, fontWeight: FontWeight.w600),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    order.tableNumber.isNotEmpty ? Icons.table_restaurant_outlined : Icons.shopping_bag_outlined,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    order.tableNumber.isNotEmpty ? 'Table ${order.tableNumber}' : 'Pickup',
+                    style: KDSTextStyles.body(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                ],
               ),
             ),
             Expanded(
@@ -64,11 +73,15 @@ class OrderItemWidget extends StatelessWidget {
                 ),
               ),
             ),
-            OrderActionButton(),
+            ActionButton(
+              backgroundColor: KDSColors.buttonBlue,
+              hoverColor: KDSColors.buttonBlueHover,
+              text: order.orderStatus == OrderStatus.inProgress ? 'FINISH' : 'START',
+              onTap: () {},
+            ),
           ],
         ),
       ),
     );
   }
 }
-
