@@ -17,13 +17,7 @@ class OrderItemHeader extends StatelessWidget {
     return Container(
       height: 75,
       width: double.infinity,
-      decoration: const BoxDecoration(
-        color: Colors.blueGrey,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(4),
-          topRight: Radius.circular(4),
-        ),
-      ),
+      color: Colors.blueGrey,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Row(
@@ -46,13 +40,14 @@ class OrderItemHeader extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                if(waiterName != null && waiterName!.isNotEmpty) Text(
-                  waiterName!,
-                  style: KDSTextStyles.body(
-                    color: Colors.white,
-                    fontSize: 16,
+                if (waiterName != null && waiterName!.isNotEmpty)
+                  Text(
+                    waiterName!,
+                    style: KDSTextStyles.body(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
                   ),
-                ),
               ],
             ),
           ],

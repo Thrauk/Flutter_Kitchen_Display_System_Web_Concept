@@ -6,6 +6,24 @@ class OrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: KDSColors.darkRed,
+        leadingWidth: 400,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'KDS - Demo platform',
+              style: KDSTextStyles.body(
+                fontSize: 20,
+                color: KDSColors.white,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
       backgroundColor: Colors.black12,
       body: BlocProvider<OrderBloc>(
         create: (context) => OrderBloc(),
@@ -22,26 +40,12 @@ class OrdersPage extends StatelessWidget {
                   child: Center(
                     child: Wrap(
                       spacing: 8,
-                      runSpacing: 4,
+                      runSpacing: 8,
                       children: state.orders.map((order) => OrderItemWidget(order: order)).toList(),
                     ),
                   ),
                 ),
               );
-              // return GridView.builder(
-              //   itemCount: state.orders.length,
-              //   shrinkWrap: true,
-              //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              //     crossAxisCount: 2,
-              //     crossAxisSpacing: 10,
-              //     mainAxisSpacing: 20,
-              //   ),
-              //   physics: const ClampingScrollPhysics(),
-              //   scrollDirection: Axis.horizontal,
-              //   itemBuilder: (context, index) {
-              //     return OrderItemWidget(order: state.orders[index]);
-              //   },
-              // );
             },
           ),
         ),

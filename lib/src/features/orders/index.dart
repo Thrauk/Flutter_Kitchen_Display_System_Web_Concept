@@ -19,6 +19,7 @@ part 'presentation/blocs/order_bloc/order_bloc.dart';
 part 'presentation/blocs/order_bloc/order_event.dart';
 part 'presentation/blocs/order_bloc/order_state.dart';
 part 'presentation/orders_page.dart';
+part 'presentation/widgets/order_item/order_action_button.dart';
 part 'presentation/widgets/order_item/order_item_header.dart';
 part 'presentation/widgets/order_item_widget.dart';
 part 'presentation/widgets/order_product_item.dart';
